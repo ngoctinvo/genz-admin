@@ -12,11 +12,21 @@ const movieAPI = {
       },
     });
   },
-  addNewMovie: (movieId: string) => {
-    return axiosAdmin.post<Movie>("QuanLyPhim/ThemPhimUploadHinh", {});
+  addNewMovie: (movie: any) => {
+    const formData = new FormData();
+    for (let key in movie) {
+      formData.append(key, movie[key]);
+    }
+    formData.append("maNhom", "GP10");
+    return axiosAdmin.post<Movie>("QuanLyPhim/ThemPhimUploadHinh", formData);
   },
-  updateMovie: (movieId: string) => {
-    return axiosAdmin.get<ShowTimes>("QuanLyPhim/CapNhatPhimUpload", {});
+  updateMovie: (movie: any) => {
+    const formData = new FormData();
+    for (let key in movie) {
+      formData.append(key, movie[key]);
+    }
+    formData.append("maNhom", "GP10");
+    return axiosAdmin.post<Movie>("QuanLyPhim/CapNhatPhimUpload", formData);
   },
   deleteMovie: () => {
     return axiosAdmin.delete<Movie>("QuanLyPhim/XoaPhim");

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { NavLink } from "react-router-dom";
 import {
   Modal,
   Table,
@@ -15,8 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
 import Movie from "Interface/movie";
 import { Button } from "@mantine/core";
-import { getMovieList, getMovie } from "Slices/movie";
-import { Registered } from "tabler-icons-react";
+import { getMovieList, getMovie, updateMovie } from "Slices/movie";
 
 type Props = {};
 
@@ -24,7 +23,7 @@ interface MovieValues {
   tenPhim: string;
   biDanh: string;
   trailer: string;
-  hinhAnh: File;
+  hinhAnh: FileList;
   moTa: string;
   ngayKhoiChieu: string;
 }
@@ -62,11 +61,16 @@ const MovieList = (props: Props) => {
     mode: "onTouched",
   });
   const onSubmit = (values: MovieValues) => {
-    console.log(values);
+    const payload = { ...values, hinhAnh: values.hinhAnh[0] };
+    console.log(payload);
+    dispatch(updateMovie(payload));
   };
 
   return (
     <div className="basis-3/4">
+      <Button color="cyan">
+        <NavLink to="/movies/add">Thêm phim </NavLink>
+      </Button>
       <Table verticalSpacing="xs" fontSize="md">
         <thead>
           <tr>

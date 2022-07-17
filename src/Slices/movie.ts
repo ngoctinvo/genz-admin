@@ -40,23 +40,30 @@ export const getMovie = createAsyncThunk(
     }
   }
 );
-export const addNewMovie = createAsyncThunk("movie/addNewMovie", async () => {
-  try {
-    // const data = await movieAPI.addNewMovie();
-    // return data;
-  } catch (error) {
-    throw error;
+export const addNewMovie = createAsyncThunk(
+  "movie/addNewMovie",
+  async (movie: any) => {
+    try {
+      const data = await movieAPI.addNewMovie(movie);
+      console.log("add new thanh cong");
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
 
-export const updateMovie = createAsyncThunk("movie/updateMovie", async () => {
-  try {
-    // const data = await movieAPI.updateMovie();
-    // return data;
-  } catch (error) {
-    throw error;
+export const updateMovie = createAsyncThunk(
+  "movie/updateMovie",
+  async (movie: any) => {
+    try {
+      const data = await movieAPI.updateMovie(movie);
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
 
 export const deleteMovie = createAsyncThunk("movie/deleteMovie", async () => {
   try {
