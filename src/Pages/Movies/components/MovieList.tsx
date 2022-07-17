@@ -1,12 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Table, InputWrapper, Input } from "@mantine/core";
+import { useForm } from "react-hook-form";
+
+import {
+  Modal,
+  Table,
+  InputWrapper,
+  Input,
+  Box,
+  RadioGroup,
+  Radio,
+  Checkbox,
+} from "@mantine/core";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
 import Movie from "Interface/movie";
 import { Button } from "@mantine/core";
 import { getMovieList, getMovie } from "Slices/movie";
+import { Registered } from "tabler-icons-react";
 
 type Props = {};
+
+interface MovieValues {
+  tenPhim: string;
+  biDanh: string;
+  trailer: string;
+  hinhAnh: File;
+  moTa: string;
+  ngayKhoiChieu: string;
+}
 
 const MovieList = (props: Props) => {
   const { movies, isLoading, error } = useSelector(
@@ -36,6 +57,13 @@ const MovieList = (props: Props) => {
   useEffect(() => {
     dispatch(getMovie(selectedMovie.tenPhim));
   }, [selectedMovie]);
+
+  const { register, handleSubmit } = useForm<MovieValues>({
+    mode: "onTouched",
+  });
+  const onSubmit = (values: MovieValues) => {
+    console.log(values);
+  };
 
   return (
     <div className="basis-3/4">
@@ -81,26 +109,65 @@ const MovieList = (props: Props) => {
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Chi tiết thông tin người dùng"
+        title="Chi tiết thông tin phim"
       >
-        <InputWrapper id="account">
-          <Input id="account" value={selectedMovie.tenPhim} />
-        </InputWrapper>
-        <InputWrapper id="name">
-          <Input id="name" value={selectedMovie.biDanh} />
-        </InputWrapper>
-        <InputWrapper id="email">
-          <Input id="email" value={selectedMovie.moTa} />
-        </InputWrapper>
-        <InputWrapper id="phone">
-          <Input id="phone" value={selectedMovie.ngayKhoiChieu} />
-        </InputWrapper>
-        <InputWrapper id="phone">
-          <Input id="phone" value={selectedMovie.maNhom} />
-        </InputWrapper>{" "}
-        <InputWrapper id="phone">
-          <Input id="phone" value={selectedMovie.trailer} />
-        </InputWrapper>
+        <div className="flex  flex-row gap-5 p-5">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Box className="basis-1/2">
+              <InputWrapper id="name" label="Tên phim">
+                <Input
+                  id="name"
+                  value={selectedMovie.tenPhim}
+                  {...register("tenPhim")}
+                />
+              </InputWrapper>
+              <InputWrapper id="alias" label="Bí danh">
+                <Input
+                  id="alias"
+                  value={selectedMovie.biDanh}
+                  {...register("biDanh")}
+                />
+              </InputWrapper>
+              <InputWrapper id="description" label="Mô tả">
+                <Input
+                  id="description"
+                  value={selectedMovie.moTa}
+                  {...register("moTa")}
+                />
+              </InputWrapper>
+              <InputWrapper id="date" label="Ngày khởi chiếu">
+                <Input
+                  id="date"
+                  value={selectedMovie.ngayKhoiChieu}
+                  {...register("ngayKhoiChieu")}
+                />
+              </InputWrapper>
+            </Box>
+            <Box className="basis-1/2">
+              <InputWrapper id="trailer" label="Trailer">
+                <Input
+                  id="trailer"
+                  value={selectedMovie.trailer}
+                  {...register("trailer")}
+                />
+              </InputWrapper>{" "}
+              <InputWrapper id="image" label="Hình ảnh">
+                <Input id="image" type="file" {...register("hinhAnh")} />
+              </InputWrapper>
+              <Checkbox label="Hot" color="cyan" />
+              <RadioGroup label="Tình trạng" size="md" color="cyan">
+                <Radio value="" label="Đang chiếu" />
+                <Radio value="coming" label="Sắp chiếu" />
+              </RadioGroup>
+            </Box>
+            <Button type="submit" color="cyan">
+              Cập nhật
+            </Button>
+            <Button color="gray" type="button" onClick={() => setOpened(false)}>
+              Đóng
+            </Button>
+          </form>
+        </div>
       </Modal>
     </div>
   );
