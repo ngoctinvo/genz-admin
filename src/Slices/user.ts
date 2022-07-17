@@ -19,6 +19,7 @@ const initialState: State = {
 export const getUserList = createAsyncThunk("user/getUserList", async () => {
   try {
     const data = await userAPI.getUserList();
+    console.log("data", data);
     return data;
   } catch (error) {
     throw error;

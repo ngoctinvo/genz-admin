@@ -5,6 +5,13 @@ const movieAPI = {
   getMovieList: () => {
     return axiosAdmin.get<Movie[]>("QuanLyPhim/LayDanhSachPhim");
   },
+  getMovie: (name: string) => {
+    return axiosAdmin.get<Movie[]>("QuanLyPhim/LayDanhSachPhim", {
+      params: {
+        tenPhim: name,
+      },
+    });
+  },
   addNewMovie: (movieId: string) => {
     return axiosAdmin.post<Movie>("QuanLyPhim/ThemPhimUploadHinh", {});
   },

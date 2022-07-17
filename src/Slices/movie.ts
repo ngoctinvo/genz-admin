@@ -19,12 +19,27 @@ export const getMovieList = createAsyncThunk("movie/getMovieList", async () => {
   try {
     console.log("thunk action get move lsit)");
     const data = await movieAPI.getMovieList();
+    console.log("data");
+
     return data;
   } catch (error) {
     throw error;
   }
 });
+export const getMovie = createAsyncThunk(
+  "movie/getMovie",
+  async (name: string) => {
+    try {
+      console.log("thunk action get move lsit)");
+      const data = await movieAPI.getMovie(name);
+      console.log("data");
 
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 export const addNewMovie = createAsyncThunk("movie/addNewMovie", async () => {
   try {
     // const data = await movieAPI.addNewMovie();
