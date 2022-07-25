@@ -37,32 +37,35 @@ export const getUser = createAsyncThunk(
     }
   }
 );
-export const addNewMovie = createAsyncThunk("movie/addNewMovie", async () => {
-  try {
-    // const data = await movieAPI.addNewMovie();
-    // return data;
-  } catch (error) {
-    throw error;
-  }
-});
+// export const addNewMovie = createAsyncThunk("movie/addNewMovie", async () => {
+//   try {
+//     // const data = await movieAPI.addNewMovie();
+//     // return data;
+//   } catch (error) {
+//     throw error;
+//   }
+// });
 
-export const updateMovie = createAsyncThunk("movie/updateMovie", async () => {
-  try {
-    // const data = await movieAPI.updateMovie();
-    // return data;
-  } catch (error) {
-    throw error;
-  }
-});
+// export const updateMovie = createAsyncThunk("movie/updateMovie", async () => {
+//   try {
+//     // const data = await movieAPI.updateMovie();
+//     // return data;
+//   } catch (error) {
+//     throw error;
+//   }
+// });
 
-export const deleteMovie = createAsyncThunk("movie/deleteMovie", async () => {
-  try {
-    const data = await movieAPI.deleteMovie();
-    return data;
-  } catch (error) {
-    throw error;
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (taiKhoan: string) => {
+    try {
+      const data = await userAPI.deleteUser(taiKhoan);
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
 
 const userSlice = createSlice({
   name: "user",

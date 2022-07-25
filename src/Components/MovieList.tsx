@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
 import Movie from "Interface/movie";
 import { Button } from "@mantine/core";
-import { getMovieList, getMovie, updateMovie } from "Slices/movie";
+import { getMovieList, getMovie, updateMovie, deleteMovie } from "Slices/movie";
 
 type Props = {};
 
@@ -32,7 +32,9 @@ const MovieList = (props: Props) => {
   const { movies, isLoading, error } = useSelector(
     (state: RootState) => state.movie
   );
-  const [opened, setOpened] = useState(false);
+  const [openDetailModal, setOpenDetailModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
   const [selectedMovie, setselectedMovie] = useState({
     maPhim: 0,
     tenPhim: "string",
@@ -65,10 +67,14 @@ const MovieList = (props: Props) => {
     console.log(payload);
     dispatch(updateMovie(payload));
   };
+  const handleDeleteMovie = () => {
+    dispatch(deleteMovie(selectedMovie.maPhim));
+    setOpenDeleteModal(false);
+  };
 
   return (
     <div className="basis-3/4">
-      <Button color="cyan">
+      <Button variant="outline" color="cyan" radius="md">
         <NavLink to="/movies/add">Thêm phim </NavLink>
       </Button>
       <Table verticalSpacing="xs" fontSize="md">
@@ -95,24 +101,41 @@ const MovieList = (props: Props) => {
               </td>
               <td className="flex">
                 <Button
-                  color="teal"
+                  color="cyan"
+                  radius="md"
                   className="mr-2"
                   onClick={() => {
-                    setOpened(true);
+                    setOpenDetailModal(true);
                     setselectedMovie(movie);
                   }}
                 >
                   Chi tiết
                 </Button>
-                <Button color="red">Xóa</Button>{" "}
+                <Button
+                  variant="outline"
+                  color="cyan"
+                  radius="md"
+                  onClick={() => {
+                    setOpenDeleteModal(true);
+                    setselectedMovie(movie);
+                  }}
+                >
+                  Xóa
+                </Button>
+                <Button color="gray" radius="md" type="button">
+                  <NavLink to={`/movies/showtime/${movie.maPhim}`}>
+                    {" "}
+                    Tạo lịch chiếu
+                  </NavLink>
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
       <Modal
-        opened={opened}
-        onClose={() => setOpened(false)}
+        opened={openDetailModal}
+        onClose={() => setOpenDetailModal(false)}
         title="Chi tiết thông tin phim"
       >
         <div className="flex  flex-row gap-5 p-5">
@@ -164,13 +187,43 @@ const MovieList = (props: Props) => {
                 <Radio value="coming" label="Sắp chiếu" />
               </RadioGroup>
             </Box>
-            <Button type="submit" color="cyan">
+            <Button type="submit" radius="md" color="cyan">
               Cập nhật
             </Button>
-            <Button color="gray" type="button" onClick={() => setOpened(false)}>
+            <Button
+              color="gray"
+              radius="md"
+              type="button"
+              onClick={() => setOpenDetailModal(false)}
+            >
               Đóng
             </Button>
           </form>
+        </div>
+      </Modal>
+
+      <Modal
+        opened={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+        title="Xác nhận xóa phim"
+      >
+        <div className="flex gap-5">
+          <Button
+            type="submit"
+            color="cyan"
+            radius="md"
+            onClick={handleDeleteMovie}
+          >
+            Xóa
+          </Button>
+          <Button
+            color="gray"
+            radius="md"
+            type="button"
+            onClick={() => setOpenDeleteModal(false)}
+          >
+            Đóng
+          </Button>
         </div>
       </Modal>
     </div>

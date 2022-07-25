@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "@mantine/core";
-import UserList from "./components/UserList";
+import UserList from "../Components/UserList";
 
 type Props = {};
 

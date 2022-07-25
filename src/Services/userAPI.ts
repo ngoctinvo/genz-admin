@@ -15,8 +15,12 @@ const userAPI = {
   updateUser: () => {
     return axiosAdmin.post<User>("QuanLyNguoiDung/CapNhatThongTinNguoiDung");
   },
-  deleteUser: () => {
-    return axiosAdmin.delete<User>("QuanLyNguoiDung/XoaNguoiDung");
+  deleteUser: (taiKhoan: string) => {
+    return axiosAdmin.delete<User>("QuanLyNguoiDung/XoaNguoiDung", {
+      params: {
+        TaiKhoan: taiKhoan,
+      },
+    });
   },
 };
 export default userAPI;

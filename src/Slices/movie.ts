@@ -65,14 +65,18 @@ export const updateMovie = createAsyncThunk(
   }
 );
 
-export const deleteMovie = createAsyncThunk("movie/deleteMovie", async () => {
-  try {
-    const data = await movieAPI.deleteMovie();
-    return data;
-  } catch (error) {
-    throw error;
+export const deleteMovie = createAsyncThunk(
+  "movie/deleteMovie",
+  async (maPhim: number) => {
+    try {
+      const data = await movieAPI.deleteMovie(maPhim);
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
-});
+);
 
 const movieSlice = createSlice({
   name: "movie",

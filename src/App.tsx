@@ -3,8 +3,10 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Users from "./Pages/Users";
 import Movies from "Pages/Movies";
 import Showtime from "Pages/Showtime";
+import AddShowtime from "Pages/AddShowtime";
 import AddMovie from "Pages/AddMovie";
 import HomeTemplate from "Templates/HomeTemplate";
+import MovieTemplate from "Templates/MovieTemplate";
 
 function App(): React.ReactElement {
   return (
@@ -12,10 +14,12 @@ function App(): React.ReactElement {
       <Routes>
         <Route path="" element={<HomeTemplate />}>
           <Route index element={<Users />} />
-          <Route path="movies" element={<Movies />} />
-          <Route path="movies/add" element={<AddMovie />} />
-
-          <Route path="showtime" element={<Showtime />} />
+          <Route path="movies" element={<MovieTemplate />}>
+            <Route index element={<Movies />} />
+            <Route path="add" element={<AddMovie />} />
+            <Route path="showtime/:movieId" element={<AddShowtime />} />
+          </Route>
+          {/* <Route path="showtime" element={<Showtime />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

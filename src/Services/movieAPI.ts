@@ -28,8 +28,12 @@ const movieAPI = {
     formData.append("maNhom", "GP10");
     return axiosAdmin.post<Movie>("QuanLyPhim/CapNhatPhimUpload", formData);
   },
-  deleteMovie: () => {
-    return axiosAdmin.delete<Movie>("QuanLyPhim/XoaPhim");
+  deleteMovie: (maPhim: number) => {
+    return axiosAdmin.delete<Movie>("QuanLyPhim/XoaPhim", {
+      params: {
+        MaPhim: maPhim,
+      },
+    });
   },
   // Và những còn lại liên quan đến movie...
 };

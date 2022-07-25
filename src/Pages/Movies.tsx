@@ -1,4 +1,4 @@
-import MovieList from "./components/MovieList";
+import MovieList from "../Components/MovieList";
 
 type Props = {};
 

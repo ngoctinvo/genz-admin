@@ -1,5 +1,5 @@
 import React from "react";
-import AddMovieForm from "./components/AddMovieForm";
+import AddMovieForm from "../Components/AddMovieForm";
 
 type Props = {};
 
