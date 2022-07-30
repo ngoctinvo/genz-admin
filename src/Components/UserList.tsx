@@ -55,7 +55,7 @@ const UserList = (props: Props) => {
     setOpenDeleteModal(false);
   };
   return (
-    <div className="basis-3/4">
+    <div className="basis-3/4 text-center">
       <Table verticalSpacing="xs" fontSize="md">
         <thead>
           <th>Mã phim</th>

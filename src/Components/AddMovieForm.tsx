@@ -67,10 +67,10 @@ const AddMovieForm = (props: Props) => {
             <Radio value="coming" label="Sắp chiếu" />
           </RadioGroup>
         </Box>
-        <Button type="submit" color="cyan">
+        <Button type="submit" color="cyan" radius="md">
           Cập nhật
         </Button>
-        <Button color="gray" type="button">
+        <Button color="gray" type="button" radius="md">
           Đóng
         </Button>
       </form>

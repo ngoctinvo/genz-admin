@@ -7,14 +7,22 @@ type Props = {};
 
 function HomeTemplate({}: Props) {
   return (
-    <>
+    <div style={{ width: "100vw" }}>
       <Header />
-      <div className="flex flex-row">
-        <MenuSide />
-        <Outlet />
+
+      <div
+        style={{
+          padding: "50px 200px",
+        }}
+      >
+        <div className="flex flex-row justify-between gap-10">
+          <MenuSide />
+          <Outlet />
+        </div>
       </div>
+
       <Footer />
-    </>
+    </div>
   );
 }
 

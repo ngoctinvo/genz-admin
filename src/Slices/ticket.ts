@@ -159,8 +159,6 @@ const ticketSlice = createSlice({
     builder.addCase(getTheaterSystemList.fulfilled, (state, { payload }) => {
       state.isLoading = false;
       state.theaterSystemList = payload;
-      console.log("get payload", payload);
-      console.log("get list", state.theaterSystemList);
     });
     builder.addCase(getTheaterSystemList.rejected, (state, { error }) => {
       state.isLoading = false;

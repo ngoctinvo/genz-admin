@@ -19,10 +19,16 @@ type Props = {
 
 const Header = () => {
   return (
-    <header className="flex flex-row justify-around items-center">
+    <header
+      className="flex flex-row justify-around items-center"
+      style={{
+        backgroundColor: "#15aabf",
+        height: "100px",
+      }}
+    >
       <div className="logo">
         <img
-          src="https://sumuoi.mobi/hinh-co-gai-chibi/imager_15117.jpg"
+          src="https://cdn141.picsart.com/270660629065211.png"
           alt="logo"
           width="100px"
         />
@@ -39,7 +45,12 @@ const Header = () => {
         <div className="control-menu">
           <Menu
             control={
-              <Button variant="subtle" color="cyan" radius="md">
+              <Button
+                variant="outline"
+                color="cyan"
+                radius="md"
+                style={{ backgroundColor: "#fff" }}
+              >
                 Tài khoản
               </Button>
             }

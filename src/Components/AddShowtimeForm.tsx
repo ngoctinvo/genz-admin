@@ -40,18 +40,23 @@ const AddShowtimeForm = (props: Props) => {
   const [checkTheaterZoneList, setCheckTheaterZoneList] = useState(false);
   const [checkTheaterList, setCheckTheaterList] = useState(false);
   const [selectedTheaterSymtem, setSelectedTheaterSymtem] = useState("");
+
   const [selectedTheater, setSelectedTheater] = useState("");
   const [selectedTheaterZone, setSelectedTheaterZone] = useState("");
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(getTheaterSystemList());
+    console.log("getTheaterSystemList");
   }, []);
 
   useEffect(() => {
-    dispatch(getTheaterZoneList(selectedTheaterSymtem));
-    if (!Array.isArray(theaterZoneList)) return;
-    setCheckTheaterZoneList(true);
+    if (selectedTheaterSymtem !== "") {
+      dispatch(getTheaterZoneList(selectedTheaterSymtem));
+      console.log("selectedTheaterSymtem");
+      if (!Array.isArray(theaterZoneList)) return;
+      setCheckTheaterZoneList(true);
+    }
   }, [selectedTheaterSymtem]);
 
   useEffect(() => {
@@ -70,51 +75,107 @@ const AddShowtimeForm = (props: Props) => {
     const data = {
       ...payload,
       maPhim: id,
-      maRap: selectedTheater,
+      maRap: "" + selectedTheater,
+      giaVe: +payload.giaVe,
     };
+    console.log("my data", data);
     dispatch(createShowtime(data));
   };
   const { register, handleSubmit } = useForm<ShowtimeValues>({
     mode: "onTouched",
   });
 
+  const theaterSystemOptions = () => {
+    let res: { value: string; label: string }[] = [];
+    theaterSystemList.forEach((sys) => {
+      res.push({
+        value: sys.maHeThongRap,
+        label: sys.tenHeThongRap,
+      });
+    });
+    return res;
+  };
+
+  const theaterZoneOptions = () => {
+    let res: { value: string; label: string }[] = [];
+
+    theaterZoneList.forEach((sys) => {
+      res.push({
+        value: sys.maCumRap,
+        label: sys.tenCumRap,
+      });
+    });
+    return res;
+  };
+  const theaterOptions = () => {
+    let res: { value: string; label: string }[] = [];
+
+    theaterList.forEach((the) => {
+      res.push({
+        value: the.maRap,
+        label: the.tenRap,
+      });
+    });
+    return res;
+  };
+
   return (
     <div className="flex  flex-row gap-5 p-5">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box>
           {/* <InputWrapper id="theaterSys" label="Hệ thống rạp"> */}
-          <select
+          <Select
+            onChange={(e) => setSelectedTheaterSymtem(e ?? "")}
+            data={theaterSystemOptions()}
+            placeholder="Chọn hệ thống rạp"
+          />
+          {/* <select
             value={selectedTheaterSymtem}
             onChange={(e) => setSelectedTheaterSymtem(e.target.value)}
           >
             {theaterSystemList.map((theaterSys) => (
-              <option>{theaterSys.maHeThongRap}</option>
+              <option value={theaterSys.maHeThongRap}>
+                {theaterSys.tenHeThongRap}
+              </option>
             ))}
-          </select>
+          </select> */}
           {/* </InputWrapper> */}
           {checkTheaterZoneList && (
-            <InputWrapper id="theater" label="Cụm rạp">
-              <select
+            <Box>
+              {" "}
+              <Select
+                onChange={(e) => setSelectedTheaterZone(e ?? "")}
+                data={theaterZoneOptions()}
+                placeholder="Chọn cụm rạp"
+              />
+              {/* <select
                 value={selectedTheaterZone}
                 onChange={(e) => setSelectedTheaterZone(e.target.value)}
               >
                 {theaterZoneList.map((theaterZone: TheaterZone) => (
-                  <option>{theaterZone.maCumRap}</option>
+                  <option value={theaterZone.maCumRap}>
+                    {theaterZone.tenCumRap}
+                  </option>
                 ))}
-              </select>
-            </InputWrapper>
+              </select> */}
+            </Box>
           )}
           {checkTheaterList && (
-            <InputWrapper id="theater" label="Cụm rạp">
-              <select
+            <Box>
+              <Select
+                onChange={(e) => setSelectedTheater(e ?? "")}
+                data={theaterOptions()}
+                placeholder="Chọn rạp"
+              />
+              {/* <select
                 value={selectedTheater}
                 onChange={(e) => setSelectedTheater(e.target.value)}
               >
                 {theaterList.map((theater) => (
-                  <option>{theater.maRap}</option>
+                  <option value={theater.maRap}>{theater.tenRap}</option>
                 ))}
-              </select>
-            </InputWrapper>
+              </select> */}
+            </Box>
           )}
 
           <InputWrapper id="datetime" label="Ngày giờ chiếu">

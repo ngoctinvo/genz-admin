@@ -1,4 +1,4 @@
-import { User } from "Interface/user";
+import { Login, User, UserType } from "Interface/user";
 import axiosAdmin from "./axiosAdmin";
 
 const userAPI = {
@@ -12,8 +12,8 @@ const userAPI = {
       },
     });
   },
-  updateUser: () => {
-    return axiosAdmin.post<User>("QuanLyNguoiDung/CapNhatThongTinNguoiDung");
+  updateUser: (nd: User) => {
+    return axiosAdmin.put<User>("QuanLyNguoiDung/CapNhatThongTinNguoiDung", nd);
   },
   deleteUser: (taiKhoan: string) => {
     return axiosAdmin.delete<User>("QuanLyNguoiDung/XoaNguoiDung", {
@@ -21,6 +21,15 @@ const userAPI = {
         TaiKhoan: taiKhoan,
       },
     });
+  },
+  addNewUser: (nd: User) => {
+    return axiosAdmin.post<User>("QuanLyNguoiDung/ThemNguoiDung", nd);
+  },
+  getUserTypeList: () => {
+    return axiosAdmin.get<UserType>("QuanLyNguoiDung/LayDanhSachLoaiNguoiDung");
+  },
+  login: (ndDN: Login) => {
+    return axiosAdmin.post<User>("QuanLyNguoiDung/DangNhap", ndDN);
   },
 };
 export default userAPI;

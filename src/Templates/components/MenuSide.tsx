@@ -11,71 +11,77 @@ type Props = {
 
 const MenuSide = () => {
   return (
-    <div className="basis-1/4 bg-white">
-      <Navbar>
-        <Box
-          sx={(theme) => ({
-            backgroundColor:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[6]
-                : theme.colors.gray[0],
-            textAlign: "center",
-            padding: theme.spacing.xl,
-            borderRadius: theme.radius.md,
-            cursor: "pointer",
+    <div style={{ width: "20%" }}>
+      <p
+        style={{
+          fontSize: "72px",
+          color: "#15aabf",
+          fontWeight: 600,
+          textAlign: "center",
 
-            "&:hover": {
-              backgroundColor:
-                theme.colorScheme === "dark"
-                  ? theme.colors.dark[5]
-                  : theme.colors.gray[1],
-            },
-          })}
-        >
-          <NavLink to="/">Users</NavLink>
-        </Box>
-        <Box
-          sx={(theme) => ({
-            backgroundColor:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[6]
-                : theme.colors.gray[0],
-            textAlign: "center",
-            padding: theme.spacing.xl,
-            borderRadius: theme.radius.md,
-            cursor: "pointer",
+          marginBottom: "20px",
+        }}
+      >
+        GenZ
+      </p>
+      <Navbar
+        sx={{
+          backgroundColor: "#15abbf18",
 
-            "&:hover": {
-              backgroundColor:
-                theme.colorScheme === "dark"
-                  ? theme.colors.dark[5]
-                  : theme.colors.gray[1],
-            },
-          })}
-        >
-          <NavLink to="/movies">Movies</NavLink>
-        </Box>
-        <Box
-          sx={(theme) => ({
-            backgroundColor:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[6]
-                : theme.colors.gray[0],
-            textAlign: "center",
-            padding: theme.spacing.xl,
-            borderRadius: theme.radius.md,
-            cursor: "pointer",
+          height: "fit-content",
+          borderRadius: "10px",
+          fontSize: "18px",
+          color: "#001b1f",
+          fontWeight: 500,
+          border: "none",
+        }}
+      >
+        <NavLink to="/user">
+          <Box
+            sx={{
+              textAlign: "center",
+              cursor: "pointer",
+              padding: "15px 0",
 
-            "&:hover": {
-              backgroundColor:
-                theme.colorScheme === "dark"
-                  ? theme.colors.dark[5]
-                  : theme.colors.gray[1],
-            },
-          })}
-        >
-          <NavLink to="/showtime">Showtime</NavLink>
-        </Box>
+              "&:hover": {
+                backgroundColor: "#15aabf4f",
+                borderRadius: "10px",
+              },
+            }}
+          >
+            Users
+          </Box>
+        </NavLink>
+        <NavLink to="/movie">
+          <Box
+            sx={{
+              textAlign: "center",
+              cursor: "pointer",
+              padding: "12px 0",
+              "&:hover": {
+                backgroundColor: "#15aabf4f",
+                borderRadius: "10px",
+              },
+            }}
+          >
+            Movies
+          </Box>
+        </NavLink>
+        <NavLink to="/showtime">
+          <Box
+            sx={{
+              textAlign: "center",
+              cursor: "pointer",
+              padding: "12px 0",
+              "&:hover": {
+                backgroundColor: "#15aabf4f",
+                borderRadius: "10px",
+              },
+            }}
+          >
+            Showtime
+          </Box>
+        </NavLink>
       </Navbar>
     </div>
   );

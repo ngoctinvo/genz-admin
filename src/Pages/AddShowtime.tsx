@@ -7,7 +7,11 @@ type Props = {};
 const AddShowtime = (props: Props) => {
   const { movieId } = useParams();
 
-  return <AddShowtimeForm />;
+  return (
+    <div style={{ width: "80%" }}>
+      <AddShowtimeForm />
+    </div>
+  );
 };
 
 export default AddShowtime;

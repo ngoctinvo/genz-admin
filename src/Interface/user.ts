@@ -6,3 +6,12 @@ export interface User {
   matKhau: string;
   maLoaiNguoiDung: string;
 }
+
+export interface UserType {
+  maLoaiNguoiDung: string;
+  tenLoai: string;
+}
+export interface Login {
+  taiKhoan: string;
+  matKhau: string;
+}

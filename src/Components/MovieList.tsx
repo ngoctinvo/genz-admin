@@ -73,10 +73,7 @@ const MovieList = (props: Props) => {
   };
 
   return (
-    <div className="basis-3/4">
-      <Button variant="outline" color="cyan" radius="md">
-        <NavLink to="/movies/add">Thêm phim </NavLink>
-      </Button>
+    <div className="basis-3/4 text-center">
       <Table verticalSpacing="xs" fontSize="md">
         <thead>
           <tr>
@@ -123,7 +120,7 @@ const MovieList = (props: Props) => {
                   Xóa
                 </Button>
                 <Button color="gray" radius="md" type="button">
-                  <NavLink to={`/movies/showtime/${movie.maPhim}`}>
+                  <NavLink to={`/movie/showtime/${movie.maPhim}`}>
                     {" "}
                     Tạo lịch chiếu
                   </NavLink>
