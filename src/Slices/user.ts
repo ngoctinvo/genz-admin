@@ -8,7 +8,6 @@ interface State {
   isLoading: boolean;
   error: string | null;
   userTypeList: UserType[];
-  auth: User;
 }
 
 const initialState: State = {
@@ -16,14 +15,6 @@ const initialState: State = {
   isLoading: false,
   error: null,
   userTypeList: [],
-  auth: {
-    taiKhoan: "",
-    hoTen: "",
-    email: "",
-    soDT: "",
-    matKhau: "",
-    maLoaiNguoiDung: "QuanTri",
-  },
 };
 
 // thunk actions
@@ -60,23 +51,6 @@ export const updateUser = createAsyncThunk(
     }
   }
 );
-// export const addNewMovie = createAsyncThunk("movie/addNewMovie", async () => {
-//   try {
-//     // const data = await movieAPI.addNewMovie();
-//     // return data;
-//   } catch (error) {
-//     throw error;
-//   }
-// });
-
-// export const updateMovie = createAsyncThunk("movie/updateMovie", async () => {
-//   try {
-//     // const data = await movieAPI.updateMovie();
-//     // return data;
-//   } catch (error) {
-//     throw error;
-//   }
-// });
 
 export const deleteUser = createAsyncThunk(
   "user/deleteUser",
@@ -114,15 +88,6 @@ export const getUserTypeList = createAsyncThunk(
   }
 );
 
-export const login = createAsyncThunk("user/login", async (ndDN: Login) => {
-  try {
-    const data = await userAPI.login(ndDN);
-    return data;
-  } catch (error) {
-    throw error;
-  }
-});
-
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -145,13 +110,6 @@ const userSlice = createSlice({
       state.isLoading = false;
       // state.userTypeList = payload;
       console.log("type list - ", payload);
-    });
-    builder.addCase(login.fulfilled, (state, { payload }) => {
-      state.auth = payload;
-      localStorage.setItem("auth", JSON.stringify(payload));
-    });
-    builder.addCase(getUser.fulfilled, (state, { payload }) => {
-      state.auth = payload;
     });
   },
 });

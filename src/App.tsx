@@ -12,13 +12,13 @@ import MovieTemplate from "Templates/MovieTemplate";
 import UserTemplate from "Templates/UserTemplate";
 import AddUser from "Pages/AddUser";
 import Profile from "Pages/Profile";
-
+import ProtectedRoute from "Routes/ProtectedRoute";
 function App(): React.ReactElement {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="login" element={<Login />} />
-        <Route path="" element={<HomeTemplate />}>
+        <Route path="" element={<ProtectedRoute children={<HomeTemplate />} />}>
           <Route path="profile" element={<Profile />} />
 
           <Route path="user" element={<UserTemplate />}>

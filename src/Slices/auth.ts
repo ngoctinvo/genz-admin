@@ -1,18 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { User, Login } from "Interface/user";
+import { Auth } from "Interface/auth";
 
-const initialState = {
-  // user: {
-  //   taiKhoan: "dannguyen",
-  //   email: "dan@gmail.com",
-  // },
-  user: null,
+import userAPI from "Services/userAPI";
+import { object } from "yup";
+interface State {
+  auth: Auth;
+}
+
+const initialState: State = {
+  auth: {
+    accessToken: "",
+    email: "",
+    hoTen: "",
+    maLoaiNguoiDung: "",
+    maNhom: "GP10",
+    soDT: "",
+    taiKhoan: "",
+  },
 };
-
-// Viết actions login và register
-export const login = createAsyncThunk("auth/login", async (values) => {
+export const login = createAsyncThunk("user/login", async (ndDN: Login) => {
   try {
-    // const data = await authAPI.login(values)
-    const data = { name: "aaa" };
+    const data = await userAPI.login(ndDN);
     return data;
   } catch (error) {
     throw error;
@@ -22,12 +31,22 @@ export const login = createAsyncThunk("auth/login", async (values) => {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
-  extraReducers: builder => {
-    builder.addCase(login.fulfilled, (state, {payload}) => {
-      // state.user = payload
-    })
-  }
+  reducers: {
+    loginSuccess: (state, action) => {
+      state.auth = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(login.fulfilled, (state, { payload }) => {
+      localStorage.setItem("access_token", payload.accessToken);
+      console.log(payload.accessToken);
+      state.auth = payload;
+    });
+    builder.addCase(login.rejected, (state, { error }) => {
+      console.log(error);
+    });
+  },
 });
+export const { loginSuccess } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -59,7 +59,9 @@ const Header = () => {
               <NavLink to="/profile">Trang cá nhân</NavLink>
             </Menu.Item>
             <Menu.Item>
-              <NavLink to="/logout">Đăng xuất</NavLink>
+              <NavLink onClick={() => localStorage.clear()} to="/login">
+                Đăng xuất
+              </NavLink>
             </Menu.Item>
           </Menu>
         </div>

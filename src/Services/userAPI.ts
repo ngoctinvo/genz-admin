@@ -1,3 +1,4 @@
+import { Auth } from "Interface/auth";
 import { Login, User, UserType } from "Interface/user";
 import axiosAdmin from "./axiosAdmin";
 
@@ -29,7 +30,7 @@ const userAPI = {
     return axiosAdmin.get<UserType>("QuanLyNguoiDung/LayDanhSachLoaiNguoiDung");
   },
   login: (ndDN: Login) => {
-    return axiosAdmin.post<User>("QuanLyNguoiDung/DangNhap", ndDN);
+    return axiosAdmin.post<Auth>("QuanLyNguoiDung/DangNhap", ndDN);
   },
 };
 export default userAPI;

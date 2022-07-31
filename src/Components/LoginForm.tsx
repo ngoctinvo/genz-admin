@@ -3,7 +3,7 @@ import { Input, Button } from "@mantine/core";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
-import { login } from "Slices/user";
+import { login } from "Slices/auth";
 import { useNavigate } from "react-router-dom";
 
 type Props = {};
@@ -14,6 +14,7 @@ interface LoginValues {
 
 const LoginForm = (props: Props) => {
   const navigate = useNavigate();
+  const { auth } = useSelector((state: RootState) => state.auth);
 
   const { register, handleSubmit } = useForm<LoginValues>({
     mode: "onTouched",
@@ -22,7 +23,11 @@ const LoginForm = (props: Props) => {
 
   const onSubmit = (values: LoginValues) => {
     const res = dispatch(login(values));
-    navigate("/profile");
+    if (auth.accessToken) {
+      navigate("/profile");
+    } else {
+      alert("Sai tài khoản");
+    }
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
