@@ -78,7 +78,6 @@ export const createShowtime = createAsyncThunk(
       const data = await ticketAPI.createShowtime(lich);
       return data;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }

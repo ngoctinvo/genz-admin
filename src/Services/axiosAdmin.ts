@@ -6,20 +6,22 @@ const axiosAdmin = axios.create({
   headers: {
     TokenCybersoft:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJGcm9udCBFbmQgNzEiLCJIZXRIYW5TdHJpbmciOiIxMS8xMi8yMDIyIiwiSGV0SGFuVGltZSI6IjE2NzA3MTY4MDAwMDAiLCJuYmYiOjE2NDU5ODEyMDAsImV4cCI6MTY3MDg2NDQwMH0.hImF3FD5ezlSpmo_fyOBeTlwLGcUfxyEeZIRIddaRFE",
-    maNhom: "GP10",
+    maNhom: "GP01",
     Authorization: `Bearer ${
       typeof window !== "undefined" ? localStorage.getItem("access_token") : ""
     }`,
   },
 });
 
-// axiosAdmin.interceptors.request.use((config) => {
-//   if (config.headers) {
-//     config.headers.demo = "FE71";
-//   }
+axiosAdmin.interceptors.request.use((config) => {
+  if (config.headers) {
+    config.headers.Authorization = `Bearer ${
+      typeof window !== "undefined" ? localStorage.getItem("access_token") : ""
+    }`;
+  }
 
-//   return config;
-// });
+  return config;
+});
 
 axiosAdmin.interceptors.response.use(
   (reponse) => {

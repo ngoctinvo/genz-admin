@@ -7,11 +7,9 @@ type Props = {};
 const Footer = (props: Props) => {
   return (
     <footer
+      className="flex items-center justify-center text-white font-semibold text-xl h-32"
       style={{
-        backgroundColor: "#15aabf",
-        height: "100px",
-        color: "#fff",
-        textAlign: "center",
+        backgroundColor: "#f0abc0",
       }}
     >
       React Capstone

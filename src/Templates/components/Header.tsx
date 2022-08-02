@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Avatar, Navbar } from "@mantine/core";
@@ -18,15 +20,20 @@ type Props = {
 };
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header
-      className="flex flex-row justify-around items-center"
+      className="flex flex-row justify-around items-center h-32"
       style={{
-        backgroundColor: "#15aabf",
-        height: "100px",
+        backgroundColor: "#f0abc0",
       }}
     >
-      <div className="logo">
+      <div
+        className="logo"
+        onClick={() => navigate("/")}
+        style={{ cursor: "pointer" }}
+      >
         <img
           src="https://cdn141.picsart.com/270660629065211.png"
           alt="logo"
@@ -36,19 +43,21 @@ const Header = () => {
       <div className="account flex flex-row items-center  gap-1">
         <div className="avatar">
           <Avatar
-            src="https://congdongdanhgia.com/wp-content/uploads/2022/03/anime-chibi-21.jpg"
+            src="https://i.pinimg.com/1200x/b7/b0/99/b7b09981fabc7130a7a18e32aabdb63f.jpg"
             alt="avatar"
             radius="xl"
             size={50}
+            onClick={() => navigate("/profile")}
+            sx={{ cursor: "pointer" }}
           />
         </div>
         <div className="control-menu">
           <Menu
             control={
               <Button
+                radius="sm"
                 variant="outline"
-                color="cyan"
-                radius="md"
+                color="pink"
                 style={{ backgroundColor: "#fff" }}
               >
                 Tài khoản

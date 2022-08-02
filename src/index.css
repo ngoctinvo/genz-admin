@@ -7,3 +7,39 @@
         /* @apply text-white */
     }
 }
+
+th,
+td {
+    text-align: center !important;
+}
+
+.mantine-1w07r5r,
+.mantine-riils3,
+.mantine-1pk424g,
+.mantine-1kutx1b,
+th,
+h2,
+h3,
+td {
+    color: #fff !important;
+}
+
+.mantine-xl68c9 {
+    background-color: #f0abc0 !important;
+    color: #1f1f1f !important;
+}
+
+.mantine-4gs9hs {
+    color: #f0abc0 !important;
+    border-color: #f0abc0 !important;
+}
+
+.mantine-1kkmtua,
+.mantine-g773hu,
+.mantine-yq9s8v {
+    background-color: #ffeef4 !important;
+}
+
+.mantine-1abbsss {
+    background-color: #1f1f1f !important;
+}

@@ -17,9 +17,7 @@ const initialState: State = {
 // thunk actions
 export const getMovieList = createAsyncThunk("movie/getMovieList", async () => {
   try {
-    console.log("thunk action get move lsit)");
     const data = await movieAPI.getMovieList();
-    console.log("data");
 
     return data;
   } catch (error) {
@@ -30,9 +28,7 @@ export const getMovie = createAsyncThunk(
   "movie/getMovie",
   async (name: string) => {
     try {
-      console.log("thunk action get move lsit)");
       const data = await movieAPI.getMovie(name);
-      console.log("data");
 
       return data;
     } catch (error) {
@@ -45,7 +41,6 @@ export const addNewMovie = createAsyncThunk(
   async (movie: any) => {
     try {
       const data = await movieAPI.addNewMovie(movie);
-      console.log("add new thanh cong");
       return data;
     } catch (error) {
       throw error;
@@ -72,7 +67,6 @@ export const deleteMovie = createAsyncThunk(
       const data = await movieAPI.deleteMovie(maPhim);
       return data;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }

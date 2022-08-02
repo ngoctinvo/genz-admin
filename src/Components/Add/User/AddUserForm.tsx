@@ -33,11 +33,9 @@ const AddUserForm = (props: Props) => {
 
   useEffect(() => {
     dispatch(getUserTypeList());
-    console.log("type list", userTypeList);
   }, []);
 
   const onSubmit = (payload: UserValues) => {
-    console.log(payload);
     dispatch(addNewUser(payload));
   };
   const { register, handleSubmit } = useForm<UserValues>({
@@ -45,7 +43,7 @@ const AddUserForm = (props: Props) => {
   });
 
   return (
-    <div className="flex  flex-row gap-5 p-5">
+    <div className="p-5">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box className="basis-1/2">
           <InputWrapper id="username" label="Tài khoản">
@@ -72,10 +70,10 @@ const AddUserForm = (props: Props) => {
             <Input id="name" {...register("hoTen")} />
           </InputWrapper>
         </Box>
-        <Button type="submit" color="cyan" radius="md">
+        <Button radius="sm" type="submit" color="pink" className="mt-4 mr-3">
           Tạo
         </Button>
-        <Button color="gray" type="button" radius="md">
+        <Button radius="sm" color="pink" variant="outline" type="button">
           Đóng
         </Button>
       </form>

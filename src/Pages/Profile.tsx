@@ -5,7 +5,7 @@ type Props = {};
 
 const Profile = (props: Props) => {
   return (
-    <div style={{ width: "80%" }}>
+    <div className="w-full lg:w-9/12 py-10">
       <ProfileForm />
     </div>
   );

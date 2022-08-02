@@ -26,69 +26,51 @@ interface UserValues {
 }
 const ProfileForm = (props: Props) => {
   const [auth, setAuth] = useState({
-    taiKhoan: "checkadd12",
-    hoTen: "Yến Ngân",
-    email: "yen12@gmail.com",
-    soDT: "2525556nxnxn",
-    matKhau: "s",
-    maLoaiNguoiDung: "QuanTri",
+    taiKhoan: "",
+    email: "",
+    soDT: "",
+    hoTen: "",
+    maLoaiNguoiDung: "",
   });
-  let ta = () => {
-    const tmp = localStorage.getItem("auth");
-    return JSON.parse(tmp ? tmp : "");
-  };
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const tmp = localStorage.getItem("auth");
-    if (tmp === null) return;
-    const res = JSON.parse(tmp);
-    if (!tmp || typeof res === "undefined") return;
-    setAuth(JSON.parse(tmp));
+    const user = localStorage.getItem("auth");
+    if (user === null) return;
+    setAuth(JSON.parse(user));
   }, []);
 
-  //   const onSubmit = (payload: UserValues) => {
-  //     console.log(payload);
-  //     dispatch(addNewUser(payload));
-  //   };
   const { register, handleSubmit } = useForm<UserValues>({
     mode: "onTouched",
   });
   const onSubmit = (values: UserValues) => {
     const res = {
       ...values,
-      taiKhoan: auth.taiKhoan,
+      taiKhoan: auth?.taiKhoan || "",
       maNhom: "GP10",
-      maLoaiNguoiDung: auth.maLoaiNguoiDung,
+      maLoaiNguoiDung: auth?.maLoaiNguoiDung,
     };
     dispatch(updateUser(res));
   };
 
   return (
-    <div className="flex  flex-row gap-5 p-5">
+    <div className=" p-5">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box>
-          <InputWrapper id="username" label="Tài khoản">
-            <Input id="name" value={auth.taiKhoan} disabled />
-          </InputWrapper>
-          <InputWrapper id="password" label="Mật khẩu">
-            <Input
-              id="password"
-              value={auth.matKhau}
-              {...register("matKhau")}
-            />
-          </InputWrapper>
-          <InputWrapper id="email" label="email">
-            <Input id="email" value={auth.email} {...register("email")} />
-          </InputWrapper>
-          <InputWrapper id="phone" label="Số điện thoại">
-            <Input id="phone" value={auth.soDT} {...register("soDT")} />
-          </InputWrapper>
-          <InputWrapper id="name" label="Họ tên">
-            <Input id="name" defaultValue={auth.hoTen} {...register("hoTen")} />
-          </InputWrapper>
-        </Box>
-        <Button type="submit" color="cyan" radius="md">
+        <InputWrapper id="username" label="Tài khoản">
+          <Input id="name" value={auth.taiKhoan} disabled />
+        </InputWrapper>
+
+        <InputWrapper id="email" label="email">
+          <Input id="email" value={auth.email} {...register("email")} />
+        </InputWrapper>
+        <InputWrapper id="phone" label="Số điện thoại">
+          <Input id="phone" value={auth.soDT} {...register("soDT")} />
+        </InputWrapper>
+        <InputWrapper id="name" label="Họ tên">
+          <Input id="name" defaultValue={auth.hoTen} {...register("hoTen")} />
+        </InputWrapper>
+        <Button radius="sm" type="submit" color="pink" className="mt-4">
           Cập nhật
         </Button>
       </form>

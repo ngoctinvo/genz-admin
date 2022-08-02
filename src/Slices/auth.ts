@@ -14,7 +14,7 @@ const initialState: State = {
     email: "",
     hoTen: "",
     maLoaiNguoiDung: "",
-    maNhom: "GP10",
+    maNhom: "GP01",
     soDT: "",
     taiKhoan: "",
   },
@@ -39,7 +39,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, { payload }) => {
       localStorage.setItem("access_token", payload.accessToken);
-      console.log(payload.accessToken);
+      localStorage.setItem("auth", JSON.stringify(payload));
       state.auth = payload;
     });
     builder.addCase(login.rejected, (state, { error }) => {

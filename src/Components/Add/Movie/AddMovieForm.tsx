@@ -25,20 +25,43 @@ interface MovieValues {
   hinhAnh: FileList;
   moTa: string;
   ngayKhoiChieu: string;
+  dangChieu: boolean;
+  hot: boolean;
+  danhGia: number;
 }
+
+// interface Movie {
+//   maPhim: number;
+//   tenPhim: string;
+//   biDanh: string;
+//   trailer: string;
+//   hinhAnh: string;
+//   moTa: string;
+//   maNhom: string;
+//   ngayKhoiChieu: string;
+//   danhGia: number;
+//   hot: boolean;
+//   dangChieu: boolean;
+//   sapChieu: boolean;
+// }
+
 const AddMovieForm = (props: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit = (values: MovieValues) => {
-    const payload = { ...values, hinhAnh: values.hinhAnh[0] };
-    console.log(payload);
+    const payload = {
+      ...values,
+      hinhAnh: values.hinhAnh[0],
+      sapChieu: !values.dangChieu,
+      danhGia: +values.danhGia,
+    };
     dispatch(addNewMovie(payload));
   };
   const { register, handleSubmit } = useForm<MovieValues>({
     mode: "onTouched",
   });
   return (
-    <div className="flex  flex-row gap-5 p-5">
+    <div className=" p-5">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box className="basis-1/2">
           <InputWrapper id="name" label="Tên phim">
@@ -61,16 +84,30 @@ const AddMovieForm = (props: Props) => {
           <InputWrapper id="image" label="Hình ảnh">
             <Input id="image" type="file" {...register("hinhAnh")} />
           </InputWrapper>
-          <Checkbox label="Hot" color="cyan" />
-          <RadioGroup label="Tình trạng" size="md" color="cyan">
-            <Radio value="" label="Đang chiếu" />
-            <Radio value="coming" label="Sắp chiếu" />
+          <Checkbox
+            label="Hot"
+            color="pink"
+            {...register("hot")}
+            className="mt-3 mb-2"
+          />
+          <RadioGroup
+            label="Tình trạng"
+            size="md"
+            color="pink"
+            {...register("dangChieu")}
+            onChange={(e) => console.log(e)}
+          >
+            <Radio value="true" label="Đang chiếu" />
+            <Radio value="false" label="Sắp chiếu" />
           </RadioGroup>
+          <InputWrapper id="rate" label="Đánh giá">
+            <Input id="rate" {...register("danhGia")} />
+          </InputWrapper>
         </Box>
-        <Button type="submit" color="cyan" radius="md">
+        <Button radius="sm" type="submit" color="pink" className="mt-4 mr-4">
           Cập nhật
         </Button>
-        <Button color="gray" type="button" radius="md">
+        <Button radius="sm" color="pink" variant="outline" type="button">
           Đóng
         </Button>
       </form>

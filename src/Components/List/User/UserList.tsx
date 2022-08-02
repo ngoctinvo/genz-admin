@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Table, InputWrapper, Input } from "@mantine/core";
+import { Modal, Table, InputWrapper, Input, Title } from "@mantine/core";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
 import { User } from "Interface/user";
-import { getUserList, getUser, deleteUser } from "Slices/user";
+import { getUserList, getUser, deleteUser, updateUser } from "Slices/user";
 import { Button } from "@mantine/core";
 import { useForm } from "react-hook-form";
 
@@ -30,24 +30,27 @@ const UserList = (props: Props) => {
     matKhau: "",
     maLoaiNguoiDung: "",
   });
+
   const { users, isLoading, error } = useSelector(
     (state: RootState) => state.user
   );
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    console.log("dispatch movie list");
     dispatch(getUserList());
   }, []);
 
   useEffect(() => {
+    console.log(selectedUser);
     dispatch(getUser(selectedUser.taiKhoan));
   }, [selectedUser]);
 
-  const { register, handleSubmit } = useForm<UserValues>({
+  const { register, handleSubmit, setValue } = useForm<UserValues>({
     mode: "onTouched",
   });
-  const onSubmit = (values: UserValues) => {
-    console.log(values);
+
+  const onUpdateUser = (values: UserValues) => {
+    console.log({ values });
+    //dispatch(updateUser(values));
   };
 
   const handleDeleteUser = () => {
@@ -55,7 +58,7 @@ const UserList = (props: Props) => {
     setOpenDeleteModal(false);
   };
   return (
-    <div className="basis-3/4 text-center">
+    <div className="text-center">
       <Table verticalSpacing="xs" fontSize="md">
         <thead>
           <th>Mã phim</th>
@@ -71,69 +74,62 @@ const UserList = (props: Props) => {
 
               <td className="flex">
                 <Button
-                  color="cyan"
-                  radius="md"
+                  radius="sm"
+                  color="pink"
                   className="mr-2"
                   onClick={() => {
+                    // tà đạo vl
+                    setValue("taiKhoan", user.taiKhoan);
+                    setValue("email", user.email);
+                    setValue("soDT", user.soDT);
+                    setValue("hoTen", user.hoTen);
+                    setSelectedUser({ ...user });
                     setOpenDetailModal(true);
-                    setSelectedUser(user);
                   }}
                 >
-                  Chi tiết
+                  <i className="fa fa-edit"></i>
                 </Button>
                 <Button
+                  radius="sm"
                   variant="outline"
-                  color="cyan"
-                  radius="md"
+                  color="pink"
                   onClick={() => {
+                    setSelectedUser({ ...user });
                     setOpenDeleteModal(true);
-                    setSelectedUser(user);
                   }}
                 >
-                  Xóa
+                  <i className="fa fa-trash"></i>
                 </Button>{" "}
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <Modal
-        opened={openDetailModal}
-        onClose={() => setOpenDetailModal(false)}
-        title="Chi tiết thông tin người dùng"
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <InputWrapper id="account">
-            <Input
-              id="account"
-              value={selectedUser.taiKhoan}
-              {...register("taiKhoan")}
-            />
+      <Modal opened={openDetailModal} onClose={() => setOpenDetailModal(false)}>
+        <form onSubmit={handleSubmit(onUpdateUser)} className="px-5">
+          <Title order={3} className="text-center">
+            Chi tiết thông tin người dùng
+          </Title>
+          <InputWrapper id="account" label="Tài khoản">
+            <Input radius="sm" id="account" {...register("taiKhoan")} />
           </InputWrapper>
-          <InputWrapper id="name">
-            <Input
-              id="name"
-              value={selectedUser.hoTen}
-              {...register("hoTen")}
-            />
+          <InputWrapper id="name" label="Họ tên">
+            <Input radius="sm" id="name" {...register("hoTen")} />
           </InputWrapper>
-          <InputWrapper id="email">
-            <Input
-              id="email"
-              value={selectedUser.email}
-              {...register("email")}
-            />
+          <InputWrapper id="email" label="Email">
+            <Input radius="sm" id="email" {...register("email")} />
           </InputWrapper>
-          <InputWrapper id="phone">
-            <Input id="phone" value={selectedUser.soDT} {...register("soDT")} />
+          <InputWrapper id="phone" label="Số điện thoại">
+            <Input radius="sm" id="phone" {...register("soDT")} />
           </InputWrapper>
-          <Button radius="md" color="cyan" type="submit">
+          <Button radius="sm" color="pink" type="submit" className="mt-4 mr-3">
             Cập nhật
           </Button>
           <Button
-            color="gray"
+            radius="sm"
+            color="pink"
+            variant="outline"
             type="button"
-            radius="md"
             onClick={() => setOpenDetailModal(false)}
           >
             Đóng
@@ -143,20 +139,21 @@ const UserList = (props: Props) => {
       <Modal
         opened={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
-        title="Xác nhận xóa phim"
+        title="Xác nhận xóa người dùng"
       >
         <div className="flex gap-5">
           <Button
+            radius="sm"
             type="submit"
-            color="cyan"
-            radius="md"
+            color="pink"
             onClick={handleDeleteUser}
           >
             Xóa
           </Button>
           <Button
-            color="gray"
-            radius="md"
+            radius="sm"
+            color="pink"
+            variant="outline"
             type="button"
             onClick={() => setOpenDeleteModal(false)}
           >

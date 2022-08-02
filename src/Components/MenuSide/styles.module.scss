@@ -1,0 +1,21 @@
+.nav_bar {
+    background-color: #f0abc03b !important;
+    height: fit-content !important;
+    border-radius: 10px !important;
+    font-size: 18px !important;
+    color: #fff !important;
+    font-weight: 500 !important;
+    border: none !important;
+}
+
+.nav_link {
+    text-align: center !important;
+    cursor: pointer !important;
+    padding: 12px 0 !important;
+    border-radius: 10px !important;
+}
+
+.nav-link:hover {
+    background-color: #f0abc04f !important;
+    border-radius: 10px !important;
+}

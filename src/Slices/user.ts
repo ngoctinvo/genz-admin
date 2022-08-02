@@ -21,7 +21,6 @@ const initialState: State = {
 export const getUserList = createAsyncThunk("user/getUserList", async () => {
   try {
     const data = await userAPI.getUserList();
-    console.log("data", data);
     return data;
   } catch (error) {
     throw error;
@@ -57,6 +56,7 @@ export const deleteUser = createAsyncThunk(
   async (taiKhoan: string) => {
     try {
       const data = await userAPI.deleteUser(taiKhoan);
+      getUserList();
       return data;
     } catch (error) {
       throw error;
@@ -109,7 +109,6 @@ const userSlice = createSlice({
     builder.addCase(getUserTypeList.fulfilled, (state, { payload }) => {
       state.isLoading = false;
       // state.userTypeList = payload;
-      console.log("type list - ", payload);
     });
   },
 });

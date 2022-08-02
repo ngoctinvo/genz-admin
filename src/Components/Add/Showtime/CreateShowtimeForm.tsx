@@ -32,11 +32,11 @@ type Props = {};
 interface ShowtimeValues {
   ngayChieuGioChieu: string;
   giaVe: number;
+  maPhim: number;
 }
-const AddShowtimeForm = (props: Props) => {
+const CreateShowtimeForm = (props: Props) => {
   const { theaterSystemList, error, isLoading, theaterList, theaterZoneList } =
     useSelector((state: RootState) => state.ticket);
-  const { movieId } = useParams();
   const [checkTheaterZoneList, setCheckTheaterZoneList] = useState(false);
   const [checkTheaterList, setCheckTheaterList] = useState(false);
   const [selectedTheaterSymtem, setSelectedTheaterSymtem] = useState("");
@@ -47,13 +47,11 @@ const AddShowtimeForm = (props: Props) => {
 
   useEffect(() => {
     dispatch(getTheaterSystemList());
-    console.log("getTheaterSystemList");
   }, []);
 
   useEffect(() => {
     if (selectedTheaterSymtem !== "") {
       dispatch(getTheaterZoneList(selectedTheaterSymtem));
-      console.log("selectedTheaterSymtem");
       if (!Array.isArray(theaterZoneList)) return;
       setCheckTheaterZoneList(true);
     }
@@ -71,14 +69,12 @@ const AddShowtimeForm = (props: Props) => {
   }, [selectedTheaterZone]);
 
   const onSubmit = (payload: ShowtimeValues) => {
-    const id = parseInt(movieId!);
     const data = {
       ...payload,
-      maPhim: id,
       maRap: "" + selectedTheater,
       giaVe: +payload.giaVe,
+      maPhim: +payload.maPhim,
     };
-    console.log("my data", data);
     dispatch(createShowtime(data));
   };
   const { register, handleSubmit } = useForm<ShowtimeValues>({
@@ -120,81 +116,51 @@ const AddShowtimeForm = (props: Props) => {
   };
 
   return (
-    <div className="flex  flex-row gap-5 p-5">
+    <div className=" p-5">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box>
-          {/* <InputWrapper id="theaterSys" label="Hệ thống rạp"> */}
+        <InputWrapper label="Hệ thống rạp">
           <Select
             onChange={(e) => setSelectedTheaterSymtem(e ?? "")}
             data={theaterSystemOptions()}
             placeholder="Chọn hệ thống rạp"
+            radius="sm"
           />
-          {/* <select
-            value={selectedTheaterSymtem}
-            onChange={(e) => setSelectedTheaterSymtem(e.target.value)}
-          >
-            {theaterSystemList.map((theaterSys) => (
-              <option value={theaterSys.maHeThongRap}>
-                {theaterSys.tenHeThongRap}
-              </option>
-            ))}
-          </select> */}
-          {/* </InputWrapper> */}
-          {checkTheaterZoneList && (
-            <Box>
-              {" "}
-              <Select
-                onChange={(e) => setSelectedTheaterZone(e ?? "")}
-                data={theaterZoneOptions()}
-                placeholder="Chọn cụm rạp"
-              />
-              {/* <select
-                value={selectedTheaterZone}
-                onChange={(e) => setSelectedTheaterZone(e.target.value)}
-              >
-                {theaterZoneList.map((theaterZone: TheaterZone) => (
-                  <option value={theaterZone.maCumRap}>
-                    {theaterZone.tenCumRap}
-                  </option>
-                ))}
-              </select> */}
-            </Box>
-          )}
-          {checkTheaterList && (
-            <Box>
-              <Select
-                onChange={(e) => setSelectedTheater(e ?? "")}
-                data={theaterOptions()}
-                placeholder="Chọn rạp"
-              />
-              {/* <select
-                value={selectedTheater}
-                onChange={(e) => setSelectedTheater(e.target.value)}
-              >
-                {theaterList.map((theater) => (
-                  <option value={theater.maRap}>{theater.tenRap}</option>
-                ))}
-              </select> */}
-            </Box>
-          )}
-
-          <InputWrapper id="datetime" label="Ngày giờ chiếu">
-            <Input id="datetime" {...register("ngayChieuGioChieu")} />
+        </InputWrapper>
+        {checkTheaterZoneList && (
+          <InputWrapper label="Cụm rạp">
+            <Select
+              onChange={(e) => setSelectedTheaterZone(e ?? "")}
+              data={theaterZoneOptions()}
+              placeholder="Chọn cụm rạp"
+              radius="sm"
+            />
           </InputWrapper>
-          <InputWrapper id="price" label="Giá vé">
-            <Input id="price" {...register("giaVe")} />
+        )}
+        {checkTheaterList && (
+          <InputWrapper label="Rạp">
+            <Select
+              onChange={(e) => setSelectedTheater(e ?? "")}
+              data={theaterOptions()}
+              placeholder="Chọn rạp"
+              radius="sm"
+            />
           </InputWrapper>
-        </Box>
-
-        <Button type="submit" color="cyan" radius="sm">
+        )}
+        <InputWrapper id="datetime" label="Mã phim">
+          <Input id="maPhim" {...register("maPhim")} radius="sm" />
+        </InputWrapper>
+        <InputWrapper id="datetime" label="Ngày giờ chiếu">
+          <Input id="datetime" {...register("ngayChieuGioChieu")} radius="sm" />
+        </InputWrapper>
+        <InputWrapper id="price" label="Giá vé" className="mb-6">
+          <Input id="price" {...register("giaVe")} radius="sm" />
+        </InputWrapper>
+        <Button radius="sm" type="submit" color="pink" className="mr-5">
           Tạo lịch chiếu
-        </Button>
-        <Button color="gray" variant="outline" type="button" radius="sm">
-          Đóng
         </Button>
       </form>
     </div>
   );
 };
 
-export default AddShowtimeForm;
+export default CreateShowtimeForm;
