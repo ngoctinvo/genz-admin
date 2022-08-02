@@ -14,7 +14,6 @@ const ProtectedRoute = ({ children }: Props) => {
     // Chưa đăng nhập
     return <Navigate to="/login" />;
   }
-
   // Đã đăng nhập
   return children;
 };

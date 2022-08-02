@@ -2,10 +2,17 @@ import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import MenuSide from "../Components/MenuSide/MenuSide";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 function HomeTemplate({}: Props) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/user");
+  }, []);
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#1f1f1f" }}>
       <Header />
