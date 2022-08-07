@@ -17,7 +17,7 @@ const movieAPI = {
     for (let key in movie) {
       formData.append(key, movie[key]);
     }
-    formData.append("maNhom", "GP01");
+    formData.append("maNhom", "GP10");
     return axiosAdmin.post<Movie>("QuanLyPhim/ThemPhimUploadHinh", formData);
   },
   updateMovie: (movie: any) => {
@@ -25,7 +25,7 @@ const movieAPI = {
     for (let key in movie) {
       formData.append(key, movie[key]);
     }
-    formData.append("maNhom", "GP01");
+    formData.append("maNhom", "GP10");
     return axiosAdmin.post<Movie>("QuanLyPhim/CapNhatPhimUpload", formData);
   },
   deleteMovie: (maPhim: number) => {

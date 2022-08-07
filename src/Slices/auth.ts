@@ -14,7 +14,7 @@ const initialState: State = {
     email: "",
     hoTen: "",
     maLoaiNguoiDung: "",
-    maNhom: "GP01",
+    maNhom: "GP10",
     soDT: "",
     taiKhoan: "",
   },
