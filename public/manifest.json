@@ -1,25 +1,13 @@
 {
-  "short_name": "GenZ",
-  "name": "GenZ is a Vietnamese website that provides information about movies and also help you to book your movie tickets.",
-  "icons": [
-    {
-      "src": "logo2.svg",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo2.svg",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo2.svg",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "short_name": "GenZ",
+    "name": "GenZ is a Vietnamese website that provides information about movies and also help you to book your movie tickets.",
+    "icons": [{
+        "src": "heart.png",
+        "type": "image/png",
+        "sizes": "512x512"
+    }],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
 }
